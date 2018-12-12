@@ -4,13 +4,17 @@
     "password": "postgres",
     "database": "oneCart-dev",
     "host": "127.0.0.1",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "logging": false,
+    "operatorsAliases": false
   },
   "test": {
     "username": "postgres",
     "password": "postgres",
     "database": "oneCart-test",
     "host": "127.0.0.1",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "logging": false,
+    "operatorsAliases": false
   }
 }
