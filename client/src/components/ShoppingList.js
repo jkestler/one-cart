@@ -76,21 +76,23 @@ class ShoppingList extends Component {
             <input type="text" id="content" value={this.state.content} onChange={this.handleChange}/>
             <button>{isEditing ? 'Update' : 'Add'}</button>
          </form>
-            {items.map(({id, content}) => {
-               return (
-                  <li key={id}>
-                  {content}
-                  {!isEditing 
-                  ? 
-                  <div className="btn-group">
-                     <button onClick={() => this.deleteItem(id)}>&times;</button>
-                     <button onClick={() => this.editItem(id, content)}>Edit</button>
-                  </div>
-                  : 
-                  ''}
-                  </li>
-               );
-            })}
+            <ul className="shopping-lst">
+               {items.map(({id, content}) => {
+                  return (
+                     <li key={id}>
+                     {content}
+                     {!isEditing 
+                     ? 
+                     <div className="btn-group">
+                        <button onClick={() => this.deleteItem(id)}>&times;</button>
+                        <button onClick={() => this.editItem(id, content)}>Edit</button>
+                     </div>
+                     : 
+                     ''}
+                     </li>
+                  );
+               })}
+            </ul>
       </div>
     )
   }

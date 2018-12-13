@@ -5,3 +5,7 @@
 .App-link {
   color: #61dafb;
 }
+
+.shopping-lst li {
+  list-style-type: none;
+}
