@@ -83,7 +83,7 @@ describe("routes : wikis", () => {
                expect(err).toBeNull();
                Item.findOne({where: {content: "Ice cream"}})
                .then((item) => {
-                  expect(item).toContain("Ice cream")
+                  expect(item.content).toBe("Ice cream")
                   done();
                })
                .catch((err) => {

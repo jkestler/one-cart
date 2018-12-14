@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import uuid from 'uuid';
 import { connect } from 'react-redux';
 import { getItems, deleteItem, addItem, editItem, updateItem } from '../store/actions/itemActions';
 
@@ -26,27 +25,28 @@ class ShoppingList extends Component {
   }
 
   handleSubmit = (e) => {
-     const { content } = this.state;
-     const { isEditing, editItem } = this.props.item;
-     e.preventDefault();
-     if(isEditing) {
-        this.props.updateItem({
-         id: editItem.id,
-         content
-        })
-        this.setState({
-         content: ''
-        })
-     }
-     else {
-      this.props.addItem({
-         id: uuid(),
-         content
-      })
-      this.setState({
-         content: ''
-      })
-     }
+      const { content } = this.state;
+      const { isEditing, editItem } = this.props.item;
+      e.preventDefault();
+      if(content === '') return alert("Please enter some text for shopping item.")
+
+      if(isEditing) {
+         this.props.updateItem({
+            id: editItem.id,
+            content
+         })
+         this.setState({
+            content: ''
+         })
+      }
+      else {
+         this.props.addItem({
+            content: content
+         })
+         this.setState({
+            content: ''
+         })
+      }  
   }
 
   handleChange = (e) => {

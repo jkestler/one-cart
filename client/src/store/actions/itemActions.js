@@ -1,35 +1,63 @@
-import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, EDIT_ITEM, UPDATE_ITEM } from '../actions/types';
+import axios from 'axios';
+import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, EDIT_ITEM, UPDATE_ITEM, ITEMS_LOADING } from '../actions/types';
 
-export const getItems = () => {
-   return {
-      type: GET_ITEMS
-   }
+export const getItems = () => dispatch => {
+   dispatch(setItemsLoading());
+   axios
+   .get('/items')
+   .then(res => 
+      dispatch ({
+         type: GET_ITEMS,
+         payload: res.data
+      })
+   )
 };
 
-export const deleteItem = (id) => {
-   return {
+export const addItem = (item) => dispatch => {
+   axios
+  .post('/item/create', item)
+  .then(res => 
+      dispatch({
+         type: ADD_ITEM,
+         payload: res.data
+      })
+   )
+};
+
+export const deleteItem = (id) => dispatch => {
+  axios.delete(`/item/${id}`).then(res => 
+   dispatch({
       type: DELETE_ITEM,
       payload: id
-   }
+   })
+  )
 };
 
-export const addItem = (item) => {
-   return {
-      type: ADD_ITEM,
-      payload: item
-   }
+export const editItem = (editItem) => dispatch => {
+   axios
+   .get(`/item/${editItem.id}/edit`)
+   .then(res => 
+      dispatch({
+         type: EDIT_ITEM,
+         payload: res.data
+      })
+   )
 };
 
-export const editItem = (editItem) => {
-   return {
-      type: EDIT_ITEM,
-      payload: editItem
-   }
+export const updateItem = (updatedItem) => dispatch => {
+   console.log("updated item",updatedItem.content);
+   axios
+   .post(`/item/${updatedItem.id}/update`, updatedItem)
+   .then(res => 
+      dispatch({
+         type: UPDATE_ITEM,
+         payload: res.data
+      })
+   )
 };
 
-export const updateItem = (updatedItem) => {
+export const setItemsLoading = () => {
    return {
-      type: UPDATE_ITEM,
-      payload: updatedItem
+      type: ITEMS_LOADING
    }
 };
