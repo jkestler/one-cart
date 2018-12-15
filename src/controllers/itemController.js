@@ -52,5 +52,15 @@ module.exports = {
             res.json(item);
          }
       })
+   },
+   setPurchase(req, res, next) {
+      itemQueries.updateItem(req.params.id, req.body, (err, item) => {
+         if(err || item == null) {
+            res.json({success:false});
+         }
+         else {
+            res.json(item);
+         }
+      })
    }
 }

@@ -9,3 +9,7 @@
 .shopping-lst li {
   list-style-type: none;
 }
+
+.strike {
+  text-decoration: line-through;
+}

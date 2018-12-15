@@ -94,6 +94,32 @@ describe("routes : wikis", () => {
          });
       });
 
+      describe("POST /item/:id/purchase", () => {
+         it("should update purchase status of item", (done) => {
+            const options = { 
+               method: 'POST',
+               url: `${base}item/${this.item.id}/purchase`,
+               headers: 
+               { 'Content-Type': 'application/json' },
+               body: { isPurchased: true },
+               json: true
+            };
+
+            request.post(options, (err, res, body) => {
+               expect(err).toBeNull();
+               Item.findOne({where: {id: this.item.id}})
+               .then((item) => {
+                  expect(item.isPurchased).toBe(true)
+                  done();
+               })
+               .catch((err) => {
+                  console.log(err);
+                  done();
+               });
+           }); 
+         });
+      });
+
       describe("DELETE /item/:id/", () => {
          it("should delete a item and respond with JSON", (done) => {
             Item.findAll()

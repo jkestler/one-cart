@@ -1,4 +1,4 @@
-import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, EDIT_ITEM, UPDATE_ITEM, ITEMS_LOADING } from '../actions/types';
+import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, EDIT_ITEM, UPDATE_ITEM, ITEMS_LOADING, PURCHASE_ITEM } from '../actions/types';
 
 const initialState = {
    items: [],
@@ -43,6 +43,12 @@ export default (state = initialState, action) => {
          return {
             ...state,
             loading: true
+         }
+      case PURCHASE_ITEM:
+         const purchaseIndex = state.items.findIndex(x => x.id === action.payload);
+         return {
+            ...state,
+            items: state.items.map((item , index) => index === purchaseIndex ? {...item, isPurchased: !item.isPurchased} : item)
          }
       default:
       return state;

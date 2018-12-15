@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, EDIT_ITEM, UPDATE_ITEM, ITEMS_LOADING } from '../actions/types';
+import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, EDIT_ITEM, UPDATE_ITEM, ITEMS_LOADING, PURCHASE_ITEM } from '../actions/types';
 
 export const getItems = () => dispatch => {
    dispatch(setItemsLoading());
@@ -45,7 +45,7 @@ export const editItem = (editItem) => dispatch => {
 };
 
 export const updateItem = (updatedItem) => dispatch => {
-   console.log("updated item",updatedItem.content);
+   console.log("Update item", updatedItem)
    axios
    .post(`/item/${updatedItem.id}/update`, updatedItem)
    .then(res => 
@@ -60,4 +60,16 @@ export const setItemsLoading = () => {
    return {
       type: ITEMS_LOADING
    }
+};
+
+export const setItemPurchase = (id, purchaseStatus) => dispatch => {
+   console.log("Hello", id, purchaseStatus)
+   axios
+   .post(`/item/${id}/purchase`, {isPurchased: !purchaseStatus})
+   .then(res => 
+      dispatch({
+         type: PURCHASE_ITEM,
+         payload: id
+      })   
+   )
 };

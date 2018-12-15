@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import { getItems, deleteItem, addItem, editItem, updateItem } from '../store/actions/itemActions';
+import { getItems, deleteItem, addItem, editItem, updateItem, setItemPurchase } from '../store/actions/itemActions';
 
 
 class ShoppingList extends Component {
   state = {
      listName: "Shopping List",
-     content: ''
+     content: '',
+     isPurchased: false
   }
 
   componentDidMount() {
@@ -66,6 +67,13 @@ class ShoppingList extends Component {
       };
       this.props.editItem(editItem);
   }
+
+  handlePurchase = (content, id) => {
+     console.log("Clicked", content, id);
+     this.setState(prevState => ({
+         isPurchased: !prevState.isPurchased
+     }))
+  }
   
    render() {
     const { items, isEditing } = this.props.item;
@@ -77,10 +85,10 @@ class ShoppingList extends Component {
             <button>{isEditing ? 'Update' : 'Add'}</button>
          </form>
             <ul className="shopping-lst">
-               {items.map(({id, content}) => {
+               {items.map(({id, content, isPurchased}) => {
                   return (
                      <li key={id}>
-                     {content}
+                     <div className={isPurchased ? "items strike" : ''} onClick={() => this.props.setItemPurchase(id, isPurchased)}>{content}</div>
                      {!isEditing 
                      ? 
                      <div className="btn-group">
@@ -107,5 +115,5 @@ const mapStateToProps = (state) => {
 
 export default connect(
    mapStateToProps, 
-   { getItems, deleteItem, addItem, editItem, updateItem }
+   { getItems, deleteItem, addItem, editItem, updateItem, setItemPurchase}
    )(ShoppingList); 

@@ -1,7 +1,13 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   var Item = sequelize.define('Item', {
-    content: DataTypes.STRING
+    content: {
+      type: DataTypes.STRING
+    },
+    isPurchased: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    }
   }, {});
   Item.associate = function(models) {
     // associations can be defined here

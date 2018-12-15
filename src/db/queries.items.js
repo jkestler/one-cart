@@ -58,6 +58,17 @@ module.exports = {
             callback(err);
          });
       })
+   },
+   setItemPurchase(id, purchaseStatus, callback) {
+      return Item.findByPk(id)
+      .then((item) => {
+         if(!item) {
+            return callback("Item not found")
+         }
+         item.update(purchaseStatus, {
+            isPurchased: purchaseStatus
+         })
+      })
    }
 
 }
