@@ -11,7 +11,7 @@ module.exports = {
       });
    },
    getItem(id, callback){
-      return Item.findByPk(id)
+      return Item.findById(id)
       .then((item) => {
          callback(null, item);
       })
@@ -31,7 +31,7 @@ module.exports = {
       })
     },
    deleteItem(req, callback) {
-      return Item.findByPk(req.params.id)
+      return Item.findById(req.params.id)
       .then((item) => {
             item.destroy()
             .then((res) => {
@@ -43,7 +43,7 @@ module.exports = {
       });
    },
    updateItem(id, updatedItem, callback) {
-      return Item.findByPk(id)
+      return Item.findById(id)
       .then((item) => {
          if(!item) {
             return callback("Item not found")
@@ -60,7 +60,7 @@ module.exports = {
       })
    },
    setItemPurchase(id, purchaseStatus, callback) {
-      return Item.findByPk(id)
+      return Item.findById(id)
       .then((item) => {
          if(!item) {
             return callback("Item not found")
