@@ -2,6 +2,7 @@ const bodyParser = require("body-parser");
 const expressValidator = require("express-validator");
 const session = require("express-session");
 const flash = require("express-flash");
+require("dotenv").config();
 
 module.exports = {
    init(app, express){

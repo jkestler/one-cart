@@ -34,6 +34,7 @@ describe("routes : wikis", () => {
       });
 
       describe("POST /item/create", () => {
+
          it("should create a new item and respond with JSON", (done) => {
             const options = { 
                method: 'POST',
@@ -56,6 +57,31 @@ describe("routes : wikis", () => {
                });
             });
          });
+
+         it("should not create a new item that fails validations", (done) => {
+            const options = { 
+               method: 'POST',
+               url: `${base}item/create`,
+               headers: 
+               { 'Content-Type': 'application/json' },
+               body: { content: 'a' },
+               json: true
+            };
+     
+            request.post(options,
+              (err, res, body) => {
+                Item.findOne({where: {content: "a"}})
+                .then((item) => {
+                    expect(item).toBeNull();
+                    done();
+                })
+                .catch((err) => {
+                  console.log(err);
+                  done();
+                });
+              }
+            );
+          });
       });
 
       describe("GET /item/:id/edit", () => {

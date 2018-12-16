@@ -4,4 +4,5 @@ export const DELETE_ITEM = 'DELETE_ITEM';
 export const EDIT_ITEM = 'EDIT_ITEM';
 export const UPDATE_ITEM = 'UPDATE_ITEM';
 export const ITEMS_LOADING = 'ITEMS_LOADING';
-export const PURCHASE_ITEM = 'PURCHASE_ITEM'
+export const PURCHASE_ITEM = 'PURCHASE_ITEM';
+export const ERROR_MESSAGE = 'ERROR_MESSAGE';

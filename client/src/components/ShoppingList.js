@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { getItems, deleteItem, addItem, editItem, updateItem, setItemPurchase } from '../store/actions/itemActions';
-
+import { Alert } from 'reactstrap';
 
 class ShoppingList extends Component {
   state = {
@@ -76,10 +76,24 @@ class ShoppingList extends Component {
   }
   
    render() {
-    const { items, isEditing } = this.props.item;
+    const { items, isEditing, error } = this.props.item;
     return (
       <div>
         <h1>{this.state.listName}</h1>
+        {error 
+         ? 
+         error.map((err, id) => { 
+            return (
+               <div key={id}>
+                <Alert color="danger">
+                  {err.msg}
+                </Alert>
+               </div>
+            );
+         })
+         :
+         ''
+         }
          <form onSubmit={this.handleSubmit}>
             <input type="text" id="content" value={this.state.content} onChange={this.handleChange}/>
             <button>{isEditing ? 'Update' : 'Add'}</button>

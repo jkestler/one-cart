@@ -1,10 +1,11 @@
-import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, EDIT_ITEM, UPDATE_ITEM, ITEMS_LOADING, PURCHASE_ITEM } from '../actions/types';
+import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, EDIT_ITEM, UPDATE_ITEM, ITEMS_LOADING, PURCHASE_ITEM, ERROR_MESSAGE } from '../actions/types';
 
 const initialState = {
    items: [],
    isEditing: false,
    loading: false,
-   editItem: ''
+   editItem: '',
+   error: ''
 }
 
 export default (state = initialState, action) => {
@@ -23,7 +24,8 @@ export default (state = initialState, action) => {
       case ADD_ITEM:
          return {
             ...state,
-            items: [action.payload, ...state.items]
+            items: [action.payload, ...state.items],
+            error: ''
          }
       case EDIT_ITEM:
          return {
@@ -37,7 +39,8 @@ export default (state = initialState, action) => {
             ...state,
             editItem: '',
             isEditing: false,
-            items: state.items.map((item , index) => index === objIndex ? action.payload : item)
+            items: state.items.map((item , index) => index === objIndex ? action.payload : item),
+            error: ''
          }
       case ITEMS_LOADING:
          return {
@@ -49,6 +52,11 @@ export default (state = initialState, action) => {
          return {
             ...state,
             items: state.items.map((item , index) => index === purchaseIndex ? {...item, isPurchased: !item.isPurchased} : item)
+         }
+      case ERROR_MESSAGE:
+         return {
+            ...state,
+            error: action.payload
          }
       default:
       return state;
