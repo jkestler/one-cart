@@ -2,7 +2,8 @@
 module.exports = (sequelize, DataTypes) => {
   var Item = sequelize.define('Item', {
     content: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      allowNull: false
     },
     isPurchased: {
       type: DataTypes.BOOLEAN,
