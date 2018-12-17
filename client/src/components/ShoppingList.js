@@ -1,10 +1,30 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import { getItems, deleteItem, addItem, editItem, updateItem, setItemPurchase } from '../store/actions/itemActions';
+import { getItems, deleteItem, AddItem, editItem, UpdateItem, setItemPurchase, addItemSocket, deleteItemSocket, updateItemSocket, setItemPurchaseSocket } from '../store/actions/itemActions';
 import { Alert } from 'reactstrap';
 import { Redirect } from 'react-router-dom';
+import io from "socket.io-client";
+
+let socket;
 
 class ShoppingList extends Component {
+  constructor(props) {
+      super(props);
+      socket = io.connect("http://localhost:5000")
+      // Connections to server events
+      socket.on('itemAdded',(res)=>{
+         this.props.addItemSocket(res)
+      });
+      socket.on('itemRemoved',(res)=>{
+         this.props.deleteItem(res)
+      });
+      socket.on('itemUpdated',(res)=>{
+         this.props.updateItemSocket(res)
+      });
+      socket.on('purchaseChange',(res)=>{
+         this.props.setItemPurchaseSocket(res)
+      });
+  }
   state = {
      listName: "Shopping List",
      content: '',
@@ -14,6 +34,12 @@ class ShoppingList extends Component {
   componentDidMount() {
      this.props.getItems();
   }
+
+  componentWillUnmount() {
+   socket.disconnect()
+   alert("Disconnecting Socket as component will unmount")
+  }
+
   
   componentWillReceiveProps(nextProps) {
       const { isEditing, editItem } = nextProps.item
@@ -33,7 +59,7 @@ class ShoppingList extends Component {
       if(content === '') return alert("Please enter some text for shopping item.")
 
       if(isEditing) {
-         this.props.updateItem({
+         this.props.UpdateItem(socket, {
             id: editItem.id,
             content
          })
@@ -42,9 +68,7 @@ class ShoppingList extends Component {
          })
       }
       else {
-         this.props.addItem({
-            content: content
-         })
+         this.props.AddItem( socket, { content })
          this.setState({
             content: ''
          })
@@ -58,7 +82,7 @@ class ShoppingList extends Component {
   }
 
   deleteItem = (id) => {
-      this.props.deleteItem(id);
+      this.props.deleteItemSocket(socket, id);
   }
 
   editItem = (id, content) => {
@@ -70,7 +94,6 @@ class ShoppingList extends Component {
   }
 
   handlePurchase = (content, id) => {
-     console.log("Clicked", content, id);
      this.setState(prevState => ({
          isPurchased: !prevState.isPurchased
      }))
@@ -105,7 +128,7 @@ class ShoppingList extends Component {
                {items.map(({id, content, isPurchased}) => {
                   return (
                      <li key={id}>
-                     <div className={isPurchased ? "items strike" : ''} onClick={() => this.props.setItemPurchase(id, isPurchased)}>{content}</div>
+                     <div className={isPurchased ? "items strike" : ''} onClick={() => this.props.setItemPurchase(socket, id, isPurchased)}>{content}</div>
                      {!isEditing 
                      ? 
                      <div className="btn-group">
@@ -133,5 +156,5 @@ const mapStateToProps = (state) => {
 
 export default connect(
    mapStateToProps, 
-   { getItems, deleteItem, addItem, editItem, updateItem, setItemPurchase}
+   { getItems, deleteItem, AddItem, editItem, UpdateItem, setItemPurchase, addItemSocket, deleteItemSocket, updateItemSocket, setItemPurchaseSocket }
    )(ShoppingList); 

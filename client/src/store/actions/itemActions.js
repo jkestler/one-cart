@@ -13,14 +13,11 @@ export const getItems = () => dispatch => {
    )
 };
 
-export const addItem = (item) => dispatch => {
+export const AddItem = (socket, item) => dispatch => {
    axios
   .post('/item/create', item)
   .then(res => 
-      dispatch({
-         type: ADD_ITEM,
-         payload: res.data
-      })
+      socket.emit('addItem', res.data)
    )
    .catch(err => {
       if (err.response.status === 422) {
@@ -52,15 +49,11 @@ export const editItem = (editItem) => dispatch => {
    )
 };
 
-export const updateItem = (updatedItem) => dispatch => {
-   console.log("Update item", updatedItem)
+export const UpdateItem = (socket, updatedItem) => dispatch => {
    axios
    .post(`/item/${updatedItem.id}/update`, updatedItem)
    .then(res => 
-      dispatch({
-         type: UPDATE_ITEM,
-         payload: res.data
-      })
+      socket.emit('updateItem', res.data)
    )
    .catch(err => {
       if (err.response.status === 422) {
@@ -78,14 +71,44 @@ export const setItemsLoading = () => {
    }
 };
 
-export const setItemPurchase = (id, purchaseStatus) => dispatch => {
-   console.log("Hello", id, purchaseStatus)
+export const setItemPurchase = (socket, id, purchaseStatus) => dispatch => {
    axios
    .post(`/item/${id}/purchase`, {isPurchased: !purchaseStatus})
    .then(res => 
-      dispatch({
-         type: PURCHASE_ITEM,
-         payload: id
-      })   
+      socket.emit('setPurchase', id) 
    )
 };
+
+export const addItemSocket = (item) => {
+   return (dispatch) => {
+      dispatch({
+         type: ADD_ITEM,
+         payload: item
+      })
+	}
+};
+
+export const deleteItemSocket = (socket, id) => {
+   return (dispatch) => {
+      socket.emit('deleteItem', id)
+	}
+};
+
+export const updateItemSocket = (updatedItem) => {
+   return (dispatch) => {
+      dispatch({
+         type: UPDATE_ITEM,
+         payload: updatedItem
+      })
+	}
+};
+
+export const setItemPurchaseSocket = (purchaseStatus) => {
+   return (dispatch) => {
+      dispatch({
+         type: PURCHASE_ITEM,
+         payload: purchaseStatus
+      })   
+   }
+};
+
