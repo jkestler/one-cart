@@ -1,7 +1,8 @@
 import { CREATE_USER, SIGN_IN_USER, USER_ERROR_MESSAGE, SIGN_OUT_USER } from '../actions/types';
 
 const initialState = {
-   userError: ''
+   userError: '',
+   user: ''
 }
 
 export default (state = initialState, action) => {
