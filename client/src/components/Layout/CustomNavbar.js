@@ -8,6 +8,7 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
+  NavLink
 } from 'reactstrap';
 import { Link, NavLink } from 'react-router-dom';
 
@@ -33,7 +34,7 @@ class CustomNavbar extends Component {
     return (
       <div>
         <Navbar color="dark" dark expand="md">
-          <Link to="/">One Cart</Link>
+          <NavbarBrand href='/'>One Cart</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             {user 
@@ -49,7 +50,7 @@ class CustomNavbar extends Component {
                 <NavLink to="/signup">Sign Up</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink to="signin">Sign In</NavLink>
+                <NavLink href="signin">Sign In</NavLink>
               </NavItem>
             </Nav>
             }
