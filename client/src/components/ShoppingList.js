@@ -21,7 +21,7 @@ let socket;
 class ShoppingList extends Component {
   constructor(props) {
       super(props);
-      socket = io.connect("http://localhost:5000")
+      socket = io();
       // Connections to server events
       socket.on('itemAdded',(res)=>{
          this.props.addItemSocket(res)
@@ -47,7 +47,7 @@ class ShoppingList extends Component {
   }
 
   componentWillUnmount() {
-   socket.disconnect()
+      socket.disconnect()
   }
 
   
