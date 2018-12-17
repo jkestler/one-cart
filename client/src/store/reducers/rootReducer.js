@@ -3,8 +3,8 @@ import itemReducer from './itemReducer';
 import userReducer from './userReducer';
 
 const rootReducer = combineReducers({
-   user: userReducer,
-   item: itemReducer
+   item: itemReducer,
+   user: userReducer
 })
 
 export default rootReducer;

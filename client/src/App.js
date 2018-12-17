@@ -14,8 +14,8 @@ class App extends Component {
       <CustomNavbar />
         <Switch>
           <Route exact path='/' component={ShoppingList} />
-          <Route path='/signup' component={Signup} />
-          <Route path='/signin' component={Signin} />
+          <Route exact path='/signup' component={Signup} />
+          <Route exact path='/signin' component={Signin} />
         </Switch>
       </div>
     </BrowserRouter>
