@@ -25,13 +25,13 @@ module.exports = {
   
     },
    destroy(req, res, next) {
-   itemQueries.deleteItem(req, (err, item) => {
-      if(err){
-         res.json({success:false});
-      } else {
-         res.json({success:true});
-      }
-   });
+      itemQueries.deleteItem(req, (err, item) => {
+         if(err){
+            res.json({success:false});
+         } else {
+            res.json({success:true});
+         }
+      });
    },
    edit(req, res, next) {
       itemQueries.getItem(req.params.id, (err, item) => {

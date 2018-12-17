@@ -1,4 +1,4 @@
-import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, EDIT_ITEM, UPDATE_ITEM, ITEMS_LOADING, PURCHASE_ITEM, ERROR_MESSAGE } from '../actions/types';
+import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, EDIT_ITEM, UPDATE_ITEM, ITEMS_LOADING, PURCHASE_ITEM, ITEM_ERROR_MESSAGE } from '../actions/types';
 
 const initialState = {
    items: [],
@@ -53,7 +53,7 @@ export default (state = initialState, action) => {
             ...state,
             items: state.items.map((item , index) => index === purchaseIndex ? {...item, isPurchased: !item.isPurchased} : item)
          }
-      case ERROR_MESSAGE:
+      case ITEM_ERROR_MESSAGE:
          return {
             ...state,
             error: action.payload

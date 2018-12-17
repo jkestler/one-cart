@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, EDIT_ITEM, UPDATE_ITEM, ITEMS_LOADING, PURCHASE_ITEM, ERROR_MESSAGE } from '../actions/types';
+import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, EDIT_ITEM, UPDATE_ITEM, ITEMS_LOADING, PURCHASE_ITEM, ITEM_ERROR_MESSAGE } from '../actions/types';
 
 export const getItems = () => dispatch => {
    dispatch(setItemsLoading());
@@ -25,7 +25,7 @@ export const addItem = (item) => dispatch => {
    .catch(err => {
       if (err.response.status === 422) {
          dispatch({
-            type: ERROR_MESSAGE,
+            type: ITEM_ERROR_MESSAGE,
             payload: err.response.data.errors
          })
        }
@@ -65,7 +65,7 @@ export const updateItem = (updatedItem) => dispatch => {
    .catch(err => {
       if (err.response.status === 422) {
          dispatch({
-            type: ERROR_MESSAGE,
+            type: ITEM_ERROR_MESSAGE,
             payload: err.response.data.errors
          })
        }

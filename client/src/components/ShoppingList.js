@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { getItems, deleteItem, addItem, editItem, updateItem, setItemPurchase } from '../store/actions/itemActions';
 import { Alert } from 'reactstrap';
+import { Redirect } from 'react-router-dom';
 
 class ShoppingList extends Component {
   state = {
@@ -77,6 +78,8 @@ class ShoppingList extends Component {
   
    render() {
     const { items, isEditing, error } = this.props.item;
+    const { user } = this.props.user;
+    if(!user.id) return <Redirect to="/signin" /> 
     return (
       <div>
         <h1>{this.state.listName}</h1>
@@ -123,7 +126,8 @@ class ShoppingList extends Component {
 const mapStateToProps = (state) => {
    console.log(state);  
    return {
-      item: state.item
+      item: state.item,
+      user: state.user
    }
 };
 
