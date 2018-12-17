@@ -10,6 +10,18 @@
   margin: 20px !important;
 }
 
+.navbar a {
+  color: #D3D3D3;
+}
+
+.navbar a:hover {
+  color: #D1FAFF;
+}
+
+.nav-item {
+  margin: 8px;
+}
+
 .shopping-lst li {
   list-style-type: none;
 }
