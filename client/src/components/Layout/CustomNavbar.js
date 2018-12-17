@@ -10,7 +10,6 @@ import {
   NavItem,
   NavLink
 } from 'reactstrap';
-import { Link, NavLink } from 'react-router-dom';
 
 
 class CustomNavbar extends Component {
