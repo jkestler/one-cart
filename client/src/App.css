@@ -6,10 +6,19 @@
   color: #61dafb;
 }
 
+.h1, h1 {
+  margin: 20px !important;
+}
+
 .shopping-lst li {
   list-style-type: none;
 }
 
 .strike {
   text-decoration: line-through;
+  color:rgba(218, 223, 225, 0.8)
+}
+
+.list-items {
+  font-size: 1.5em;
 }

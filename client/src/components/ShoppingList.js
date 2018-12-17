@@ -1,7 +1,18 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { getItems, deleteItem, AddItem, editItem, UpdateItem, setItemPurchase, addItemSocket, deleteItemSocket, updateItemSocket, setItemPurchaseSocket } from '../store/actions/itemActions';
-import { Alert } from 'reactstrap';
+import { 
+   Alert, 
+   Form, 
+   Button, 
+   Input, 
+   InputGroup, 
+   InputGroupAddon,
+   ListGroup, 
+   ListGroupItem,
+   ButtonGroup,
+   Container
+} from 'reactstrap';
 import { Redirect } from 'react-router-dom';
 import io from "socket.io-client";
 
@@ -37,7 +48,6 @@ class ShoppingList extends Component {
 
   componentWillUnmount() {
    socket.disconnect()
-   alert("Disconnecting Socket as component will unmount")
   }
 
   
@@ -104,7 +114,7 @@ class ShoppingList extends Component {
     const { user } = this.props.user;
     if(!user.id) return <Redirect to="/signin" /> 
     return (
-      <div>
+      <Container>
         <h1>{this.state.listName}</h1>
         {error 
          ? 
@@ -120,28 +130,33 @@ class ShoppingList extends Component {
          :
          ''
          }
-         <form onSubmit={this.handleSubmit}>
-            <input type="text" id="content" value={this.state.content} onChange={this.handleChange}/>
-            <button>{isEditing ? 'Update' : 'Add'}</button>
-         </form>
-            <ul className="shopping-lst">
-               {items.map(({id, content, isPurchased}) => {
-                  return (
-                     <li key={id}>
-                     <div className={isPurchased ? "items strike" : ''} onClick={() => this.props.setItemPurchase(socket, id, isPurchased)}>{content}</div>
-                     {!isEditing 
-                     ? 
-                     <div className="btn-group">
-                        <button onClick={() => this.deleteItem(id)}>&times;</button>
-                        <button onClick={() => this.editItem(id, content)}>Edit</button>
-                     </div>
-                     : 
-                     ''}
-                     </li>
-                  );
-               })}
-            </ul>
-      </div>
+         <Form onSubmit={this.handleSubmit}>
+            <InputGroup>
+               <Input type="text" id="content" value={this.state.content} onChange={this.handleChange} placeholder="Add an item" bsSize="lg" />
+               <InputGroupAddon addonType="append">
+                  <Button color='success'>{isEditing ? 'Update' : 'Add'}</Button>
+               </InputGroupAddon>
+            </InputGroup>
+         </Form>
+         
+         <ListGroup className="shopping-lst">
+            {items.map(({id, content, isPurchased}) => {
+               return (
+                  <ListGroupItem key={id}>
+                  <div className={isPurchased ? "items strike" : ''} onClick={() => this.props.setItemPurchase(socket, id, isPurchased)}><p className='text-xl-center list-items'>{content}</p></div>
+                  {!isEditing 
+                  ?
+                  <ButtonGroup>
+                     <Button color='danger' onClick={() => this.deleteItem(id)}><i class="fas fa-trash-alt"></i></Button>
+                     <Button color='warning' onClick={() => this.editItem(id, content)}><i class="fas fa-edit"></i></Button>
+                  </ButtonGroup>
+                  : 
+                  ''}
+                  </ListGroupItem>
+               );
+            })}
+         </ListGroup>
+      </Container> 
     )
   }
 }

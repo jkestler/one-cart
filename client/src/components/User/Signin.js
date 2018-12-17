@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { signInUser } from '../../store/actions/userActions';
-import { Alert } from 'reactstrap';
+import { Alert, FormGroup, Form, Label, Input, Button, Container } from 'reactstrap';
 import { Redirect } from 'react-router-dom';
 
 class Signin extends Component {
@@ -27,7 +27,7 @@ class Signin extends Component {
     const { user, userError } = this.props.user;
     if(user.id) return <Redirect to="/" /> 
     return (
-      <div>
+      <Container>
         <h1>Sign In</h1>
         {userError 
          ? 
@@ -43,14 +43,16 @@ class Signin extends Component {
          :
          ''
          }
-         <form onSubmit={this.handleSubmit}>
-            <label htmlFor="email">Email: </label>
-            <input type="email" id="email" value={this.state.content} onChange={this.handleChange}/>
-            <label htmlFor="password">Password: </label>
-            <input type="password" id="password" value={this.state.content} onChange={this.handleChange}/>
-            <button>Sign In</button>
-         </form>
-      </div>
+         <Form onSubmit={this.handleSubmit}>
+            <FormGroup>
+               <Label for="email">Email: </Label>
+               <Input type="email" id="email" value={this.state.content} onChange={this.handleChange} />
+               <Label for="password">Password: </Label>
+               <Input type="password" id="password" value={this.state.content} onChange={this.handleChange} />
+               <Button>Sign In</Button>
+            </FormGroup>
+         </Form>
+      </Container>
     )
   }
 }
