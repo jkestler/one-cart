@@ -8,8 +8,8 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink,
 } from 'reactstrap';
+import { Link, NavLink } from 'react-router-dom';
 
 
 class CustomNavbar extends Component {
@@ -33,7 +33,7 @@ class CustomNavbar extends Component {
     return (
       <div>
         <Navbar color="dark" dark expand="md">
-          <NavbarBrand href="/">One Cart</NavbarBrand>
+          <Link to="/">One Cart</Link>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             {user 
@@ -46,10 +46,10 @@ class CustomNavbar extends Component {
             :
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink href="/signup">Sign Up</NavLink>
+                <NavLink to="/signup">Sign Up</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="/signin">Sign In</NavLink>
+                <NavLink to="signin">Sign In</NavLink>
               </NavItem>
             </Nav>
             }
