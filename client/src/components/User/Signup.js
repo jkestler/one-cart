@@ -10,21 +10,11 @@ class Signup extends Component {
      password: '',
      passwordConfirmation: ''
    }
-   
-   componentDidMount = () => {
-      const cachedHits = localStorage;
-      
-      if (cachedHits) {
-        console.log(cachedHits)
-        return;
-      }
-   }
 
    handleSubmit = (e) => {
       const { email, password, passwordConfirmation } = this.state;
       e.preventDefault();
       const user = { email, password, passwordConfirmation }
-      console.log('User', user);
       this.props.createUser(user)
    }
    
@@ -71,7 +61,6 @@ class Signup extends Component {
 }
 
 const mapStateToProps = (state) => {
-   console.log(state);  
    return {
       item: state.item,
       user: state.user

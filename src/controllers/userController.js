@@ -20,7 +20,6 @@ module.exports = {
       });
    },
    signIn(req, res, next){
-      console.log(req.message)
       passport.authenticate("local")(req, res, function() {
         if(req.user){
          req.flash("notice", "You've successfully signed in!");

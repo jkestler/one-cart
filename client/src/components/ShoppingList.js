@@ -147,8 +147,8 @@ class ShoppingList extends Component {
                   {!isEditing 
                   ?
                   <ButtonGroup>
-                     <Button color='danger' onClick={() => this.deleteItem(id)}><i class="fas fa-trash-alt"></i></Button>
-                     <Button color='warning' onClick={() => this.editItem(id, content)}><i class="fas fa-edit"></i></Button>
+                     <Button color='danger' onClick={() => this.deleteItem(id)}><i className="fas fa-trash-alt"></i></Button>
+                     <Button color='warning' onClick={() => this.editItem(id, content)}><i className="fas fa-edit"></i></Button>
                   </ButtonGroup>
                   : 
                   ''}
@@ -162,7 +162,6 @@ class ShoppingList extends Component {
 }
 
 const mapStateToProps = (state) => {
-   console.log(state);  
    return {
       item: state.item,
       user: state.user

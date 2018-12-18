@@ -5,7 +5,6 @@ import {
   Collapse,
   Navbar,
   NavbarToggler,
-  NavbarBrand,
   Nav,
   NavItem,
   NavLink 
@@ -33,7 +32,7 @@ class CustomNavbar extends Component {
     return (
       <div>
         <Navbar color="dark" dark expand="md">
-          <NavbarBrand><Link to="/">One Cart</Link></NavbarBrand>
+          <Link to="/">One Cart</Link>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             {user 
@@ -61,7 +60,6 @@ class CustomNavbar extends Component {
 }
 
 const mapStateToProps = (state) => {
-   console.log(state);  
    return {
       item: state.item,
       user: state.user

@@ -58,7 +58,6 @@ class Signin extends Component {
 }
 
 const mapStateToProps = (state) => {
-   console.log(state);  
    return {
       item: state.item,
       user: state.user
